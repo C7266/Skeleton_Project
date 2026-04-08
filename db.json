@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "상우"
+    }
+  ],
+
+  "categories": [
+    {
+      "id": "c1",
+      "name": "월급",
+      "type": "income"
+    },
+    {
+      "id": "c2",
+      "name": "용돈",
+      "type": "income"
+    },
+    {
+      "id": "c3",
+      "name": "식비",
+      "type": "expense"
+    },
+    {
+      "id": "c4",
+      "name": "교통비",
+      "type": "expense"
+    }
+  ],
+
+  "transactions": [
+    {
+      "id": "t1",
+      "userId": "u1",
+      "categoryId": "c1",
+      "type": "income",
+      "amount": 3000000,
+      "date": "2026-04-01",
+      "memo": "월급 들어옴"
+    },
+    {
+      "id": "t2",
+      "userId": "u1",
+      "categoryId": "c3",
+      "type": "expense",
+      "amount": 12000,
+      "date": "2026-04-02",
+      "memo": "점심값"
+    }
+  ]
+}
