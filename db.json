@@ -7,13 +7,13 @@
   ],
 
   "categories": [
-    { "id": "c1", "name": "월급", "type": "income", "color": "#4CAF50" },
-    { "id": "c2", "name": "용돈", "type": "income", "color": "#8BC34A" },
+    { "id": "c1", "name": "월급" },
+    { "id": "c2", "name": "용돈" },
 
-    { "id": "c3", "name": "식비", "type": "expense", "color": "#F44336" },
-    { "id": "c4", "name": "교통비", "type": "expense", "color": "#2196F3" },
-    { "id": "c5", "name": "유흥/취미", "type": "expense", "color": "#9C27B0" },
-    { "id": "c6", "name": "공과금", "type": "expense", "color": "#FF9800" }
+    { "id": "c3", "name": "식비" },
+    { "id": "c4", "name": "교통비" },
+    { "id": "c5", "name": "유흥/취미" },
+    { "id": "c6", "name": "공과금" }
   ],
 
   "transactions": [
@@ -24,8 +24,9 @@
       "categoryId": "c1",
       "title": "4월 월급",
       "amount": 3200000,
-      "date": "2026-04-01T09:00:00",
-      "memo": "정기급여"
+      "date": "2026-04-01",
+      "memo": "정기급여",
+      "fix": true
     },
     {
       "id": "t2",
@@ -34,8 +35,9 @@
       "categoryId": "c3",
       "title": "점심 - 한식당",
       "amount": 12000,
-      "date": "2026-04-02T12:00:00",
-      "memo": "팀 점심"
+      "date": "2026-04-02",
+      "memo": "팀 점심",
+      "fix": false
     },
     {
       "id": "t3",
@@ -44,38 +46,31 @@
       "categoryId": "c4",
       "title": "지하철",
       "amount": 1500,
-      "date": "2026-04-01T08:30:00",
-      "memo": ""
-    }
-  ],
-
-  "fixedTransactions": [
+      "date": "2026-04-01",
+      "memo": "",
+      "fix": false
+    },
     {
-      "id": "f1",
+      "id": "t4",
       "userId": "u1",
-      "type": "income",
+      "type": "expense",
       "categoryId": "c1",
-      "title": "월급",
-      "amount": 3200000,
-      "day": 1
-    },
-    {
-      "id": "f2",
-      "userId": "u1",
-      "type": "expense",
-      "categoryId": "c6",
       "title": "수도세",
-      "amount": 50000,
-      "day": 30
+      "amount": 47600,
+      "date": "2026-04-01",
+      "memo": "",
+      "fix": true
     },
     {
-      "id": "f3",
+      "id": "t5",
       "userId": "u1",
       "type": "expense",
-      "categoryId": "c5",
+      "categoryId": "c1",
       "title": "넷플릭스",
       "amount": 17000,
-      "day": 31
+      "date": "2026-04-10",
+      "memo": "",
+      "fix": true
     }
   ]
 }

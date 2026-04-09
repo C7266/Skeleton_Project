@@ -14,7 +14,7 @@
     </div>
 
     <!-- 요일 헤더 -->
-    <div class="d-grid mb-1" style="grid-template-columns: repeat(7, 1fr)">
+    <div class="d-grid mb-1" style="grid-template-columns: repeat(7, 100px)">
       <span
         v-for="day in days"
         :key="day"
@@ -32,7 +32,7 @@
     </div>
 
     <!-- 날짜 셀 -->
-    <div class="d-grid gap-2" style="grid-template-columns: repeat(7, 1fr)">
+    <div class="d-grid gap-2" style="grid-template-columns: repeat(7, 100px)">
       <div
         v-for="cell in calendarCells"
         :key="cell.date"
@@ -53,11 +53,20 @@
         >
 
         <div v-if="cell.isCurrentMonth">
-          <div v-if="cell.income > 0" class="transaction-item income-item">
-            +{{ formatAmount(cell.income) }}
-          </div>
-          <div v-if="cell.expense > 0" class="transaction-item expense-item">
-            -{{ formatAmount(cell.expense) }}
+          <div
+            v-for="tx in cell.transactions"
+            :key="tx.id + tx.date"
+            :class="tx.type === 'income' ? 'text-success' : 'text-danger'"
+            style="
+              font-size: 11px;
+              font-weight: 600;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            "
+          >
+            {{ tx.type === 'income' ? '+' : '-'
+            }}{{ formatAmount(tx.amount) }}원
           </div>
         </div>
       </div>
@@ -78,15 +87,36 @@ const transactions = ref([]);
 
 const days = ['일', '월', '화', '수', '목', '금', '토'];
 
-// 날짜별 거래 합계 맵 { 'YYYY-MM-DD': { income, expense } }
+// 날짜별 거래 배열 맵 { 'YYYY-MM-DD': [tx, ...] }
 const txByDate = computed(() => {
   const map = {};
+
   for (const tx of transactions.value) {
     const dateKey = tx.date.slice(0, 10);
-    if (!map[dateKey]) map[dateKey] = { income: 0, expense: 0 };
-    if (tx.type === 'income') map[dateKey].income += tx.amount;
-    else map[dateKey].expense += tx.amount;
+    if (!map[dateKey]) map[dateKey] = [];
+    map[dateKey].push(tx);
+
+    // 고정 거래는 현재 보는 달에도 표시
+    if (tx.fix) {
+      const txDate = new Date(tx.date);
+      const txYear = txDate.getFullYear();
+      const txMonth = txDate.getMonth() + 1;
+      const txDay = txDate.getDate();
+      const isDifferentMonth = txYear !== year.value || txMonth !== month.value;
+      const viewedDate = new Date(year.value, month.value - 1, 1);
+      const txOriginDate = new Date(txYear, txMonth - 1, 1);
+
+      if (isDifferentMonth && viewedDate >= txOriginDate) {
+        const lastDay = new Date(year.value, month.value, 0).getDate();
+        if (txDay <= lastDay) {
+          const viewedKey = `${year.value}-${String(month.value).padStart(2, '0')}-${String(txDay).padStart(2, '0')}`;
+          if (!map[viewedKey]) map[viewedKey] = [];
+          map[viewedKey].push({ ...tx, date: viewedKey });
+        }
+      }
+    }
   }
+
   return map;
 });
 
@@ -104,22 +134,19 @@ const calendarCells = computed(() => {
       day: prevLastDate - i,
       isCurrentMonth: false,
       isToday: false,
-      income: 0,
-      expense: 0,
+      transactions: [],
     });
   }
 
   // 현재 달
   for (let d = 1; d <= lastDate; d++) {
     const dateKey = `${year.value}-${String(month.value).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    const tx = txByDate.value[dateKey] ?? { income: 0, expense: 0 };
     cells.push({
       date: dateKey,
       day: d,
       isCurrentMonth: true,
       isToday: dateKey === todayStr,
-      income: tx.income,
-      expense: tx.expense,
+      transactions: txByDate.value[dateKey] ?? [],
     });
   }
 
@@ -131,8 +158,7 @@ const calendarCells = computed(() => {
       day: d,
       isCurrentMonth: false,
       isToday: false,
-      income: 0,
-      expense: 0,
+      transactions: [],
     });
   }
 
@@ -140,8 +166,6 @@ const calendarCells = computed(() => {
 });
 
 function formatAmount(amount) {
-  if (amount >= 10000)
-    return (amount / 10000).toFixed(amount % 10000 === 0 ? 0 : 1) + '만';
   return amount.toLocaleString('ko-KR');
 }
 
@@ -168,72 +192,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped>
-.calendar-cell {
-  min-height: 90px;
-  background: #fff;
-  transition: box-shadow 0.2s;
-}
-
-.today-cell {
-  background: #fffbf0 !important;
-  box-shadow:
-    0 0 0 2px #f5a623,
-    0 0 12px rgba(245, 166, 35, 0.3);
-  animation: today-pulse 2.5s ease-in-out infinite;
-}
-
-@keyframes today-pulse {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 2px #f5a623,
-      0 0 10px rgba(245, 166, 35, 0.25);
-  }
-  50% {
-    box-shadow:
-      0 0 0 2px #f5a623,
-      0 0 18px rgba(245, 166, 35, 0.55);
-  }
-}
-
-.date-number {
-  font-size: 14px;
-  font-weight: 600;
-  display: inline-block;
-}
-
-.today-badge {
-  background: #f5a623;
-  color: #fff;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-}
-
-.transaction-item {
-  font-size: 11px;
-  font-weight: 600;
-  border-radius: 4px;
-  padding: 1px 4px;
-  margin-top: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.income-item {
-  background: #e8f5e9;
-  color: #2e7d32;
-}
-
-.expense-item {
-  background: #fce4ec;
-  color: #c62828;
-}
-</style>
