@@ -1,17 +1,40 @@
 <template>
-  <div style="margin-top: 20px">
-    <button @click="goPrev" :disabled="currentPage === 1">이전</button>
+  <div class="d-flex justify-content-center align-items-center gap-1 mt-4">
+    <!-- 이전 버튼 -->
+    <button
+      class="btn btn-outline-secondary btn-sm rounded-circle"
+      style="width: 36px; height: 36px"
+      :disabled="currentPage === 1"
+      @click="goPrev"
+    >
+      <i class="bi bi-chevron-left" />
+    </button>
 
+    <!-- 페이지 번호 -->
     <button
       v-for="page in totalPages"
       :key="page"
+      class="btn btn-sm rounded-circle"
+      style="width: 36px; height: 36px"
+      :class="
+        currentPage === page
+          ? 'btn-success text-white'
+          : 'btn-outline-secondary'
+      "
       @click="$emit('update:currentPage', page)"
-      :style="{ fontWeight: currentPage === page ? 'bold' : 'normal' }"
     >
       {{ page }}
     </button>
 
-    <button @click="goNext" :disabled="currentPage === totalPages">다음</button>
+    <!-- 다음 버튼 -->
+    <button
+      class="btn btn-outline-secondary btn-sm rounded-circle"
+      style="width: 36px; height: 36px"
+      :disabled="currentPage === totalPages"
+      @click="goNext"
+    >
+      <i class="bi bi-chevron-right" />
+    </button>
   </div>
 </template>
 
@@ -24,14 +47,11 @@ const props = defineProps({
 const emit = defineEmits(['update:currentPage']);
 
 const goPrev = () => {
-  if (props.currentPage > 1) {
-    emit('update:currentPage', props.currentPage - 1);
-  }
+  if (props.currentPage > 1) emit('update:currentPage', props.currentPage - 1);
 };
 
 const goNext = () => {
-  if (props.currentPage < props.totalPages) {
+  if (props.currentPage < props.totalPages)
     emit('update:currentPage', props.currentPage + 1);
-  }
 };
 </script>
