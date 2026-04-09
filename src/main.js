@@ -1,5 +1,10 @@
+<<<<<<< HEAD
+import './assets/main.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+=======
 import './assets/transactioncss/transactions.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+>>>>>>> main
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';

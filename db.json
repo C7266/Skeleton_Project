@@ -68,7 +68,7 @@
       "amount": 12000,
       "date": "2026-04-02",
       "memo": "팀 점심",
-      "fix": true
+      "fix": false
     },
     {
       "id": "t3",
@@ -80,6 +80,28 @@
       "date": "2026-04-01",
       "memo": "",
       "fix": false
+    },
+    {
+      "id": "t4",
+      "userId": "u1",
+      "type": "expense",
+      "categoryId": "c1",
+      "title": "수도세",
+      "amount": 47600,
+      "date": "2026-04-01",
+      "memo": "",
+      "fix": true
+    },
+    {
+      "id": "t5",
+      "userId": "u1",
+      "type": "expense",
+      "categoryId": "c1",
+      "title": "넷플릭스",
+      "amount": 17000,
+      "date": "2026-04-10",
+      "memo": "",
+      "fix": true
     }
   ]
 }
