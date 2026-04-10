@@ -57,7 +57,7 @@
       "amount": 3200000,
       "date": "2026-04-01",
       "memo": "정기급여",
-      "fix": false
+      "fix": true
     },
     {
       "userId": "u1",
@@ -80,17 +80,6 @@
       "memo": "롤 스킨",
       "fix": false,
       "id": "DaIf430"
-    },
-    {
-      "userId": "u1",
-      "categoryId": "c4",
-      "type": "expense",
-      "title": "123",
-      "amount": 5000,
-      "date": "2026-04-10",
-      "memo": "",
-      "fix": false,
-      "id": "6ml4VDf"
     }
   ]
 }
