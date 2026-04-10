@@ -125,3 +125,24 @@ const handleCancel = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+@media (max-width: 991px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+  .fixed-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 캘린더 */
+@media (max-width: 991px) {
+  .calendar-container {
+    width: 100%;
+  }
+  .calendar-cell {
+    min-height: 60px;
+  }
+}
+</style>

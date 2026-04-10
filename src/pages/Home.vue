@@ -240,4 +240,31 @@ onMounted(async () => {
 .today-shadow {
   box-shadow: 0 4px 12px rgba(245, 166, 35, 0.45);
 }
+
+@media (max-width: 991px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+  .fixed-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Home.vue에 추가 */
+@media (max-width: 991px) {
+  .calendar-container {
+    width: 100%;
+  }
+  .calendar-cell {
+    min-height: 60px;
+    font-size: 10px; /* ← 추가: 텍스트 작게 */
+    padding: 4px !important; /* ← 추가: 패딩 줄임 */
+  }
+
+  /* 모바일에서 거래 텍스트 숨김 */
+  .calendar-cell .text-success,
+  .calendar-cell .text-danger {
+    display: none;
+  }
+}
 </style>

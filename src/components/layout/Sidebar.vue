@@ -1,8 +1,5 @@
 <template>
-  <aside
-    class="d-flex flex-column flex-shrink-0 sidebar-bg"
-    style="width: 230px"
-  >
+  <aside class="d-flex flex-column flex-shrink-0 sidebar-bg">
     <!-- 로고 -->
     <div class="d-flex align-items-center gap-2 px-3 py-4">
       <div
@@ -20,7 +17,6 @@
 
     <!-- 네비게이션 -->
     <nav class="flex-grow-1 px-2">
-      <!-- 메인 -->
       <div class="mb-2">
         <span class="d-block px-2 mb-1 nav-label">메인</span>
         <RouterLink
@@ -40,7 +36,6 @@
         </RouterLink>
       </div>
 
-      <!-- 거래 내역 -->
       <div class="mb-2">
         <RouterLink
           to="/history"
@@ -58,7 +53,6 @@
         </RouterLink>
       </div>
 
-      <!-- 관리 -->
       <div class="mb-2">
         <span class="d-block px-2 mb-1 nav-label">관리</span>
         <RouterLink
@@ -128,9 +122,10 @@ import { ref, computed, onMounted } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import axios from 'axios';
 
+defineEmits(['close']);
+
 const route = useRoute();
 const userName = ref('');
-
 const userInitial = computed(() => userName.value.charAt(0) || '?');
 
 onMounted(async () => {
@@ -144,6 +139,12 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+/* ── 기본 너비 ── */
+aside {
+  width: 230px;
+  min-height: 100vh;
+}
+
 .sidebar-bg {
   background-color: #1e2235;
 }
@@ -176,21 +177,13 @@ onMounted(async () => {
 .nav-item-default {
   color: #a0a8c0;
 }
-
 .nav-item-default:hover {
   background-color: #2a3050 !important;
   color: #fff !important;
 }
-
 .nav-item-active {
   background-color: #3d2e0e !important;
   color: #f5a623 !important;
-}
-
-.nav-item-dummy {
-  color: #a0a8c0;
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .user-avatar {

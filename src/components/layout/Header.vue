@@ -1,58 +1,80 @@
 <template>
-  <header
-    class="d-flex align-items-center px-4 bg-white border-bottom"
-    style="height: 64px"
-  >
-    <span class="fw-bold fs-5 text-dark flex-shrink-0" style="width: 180px">
-      {{ pageTitle }}
-    </span>
-
-    <div class="d-flex align-items-center justify-content-evenly flex-grow-1">
-      <div class="d-flex flex-column align-items-center">
-        <span class="text-secondary" style="font-size: 12px">이번 달 수입</span>
-        <span class="fw-bold text-success ms-5"
-          >{{ formatAmount(totalIncome) }}원</span
-        >
-      </div>
-
-      <div class="d-flex flex-column align-items-center">
-        <span class="text-secondary" style="font-size: 12px">이번 달 지출</span>
-        <span class="fw-bold text-danger ms-5"
-          >{{ formatAmount(totalExpense) }}원</span
-        >
-      </div>
-
-      <div class="d-flex flex-column align-items-center">
-        <span class="text-secondary" style="font-size: 12px">이번 달 수익</span>
-        <span
-          class="fw-bold ms-5"
-          :class="netProfit >= 0 ? 'text-success' : 'text-danger'"
-        >
-          {{ netProfit >= 0 ? '+' : '-' }}{{ formatAmount(netProfit) }}원
-        </span>
-      </div>
-    </div>
-    <button
-      class="btn rounded-circle fw-bold"
-      style="
-        width: 36px;
-        height: 36px;
-        font-size: 20px;
-        line-height: 1;
-        padding: 0;
-        background-color: orange;
-      "
-      @click="$router.push({ name: 'transactions' })"
+  <div class="header">
+    <header
+      class="d-flex align-items-center px-4 bg-white border-bottom"
+      style="height: 64px"
     >
-      +
-    </button>
-  </header>
+      <!-- 햄버거: 모바일에서만 보임 -->
+      <button class="d-lg-none hamburger" @click="$emit('toggle-sidebar')">
+        ☰
+      </button>
+
+      <!-- 페이지 타이틀: 모바일에서 숨김 -->
+      <span
+        class="fw-bold fs-5 text-dark flex-shrink-0 d-none d-lg-block"
+        style="width: 180px"
+      >
+        {{ pageTitle }}
+      </span>
+
+      <!-- 수입/지출/수익: 모바일에서 숨김 -->
+      <div
+        class="d-none d-lg-flex align-items-center justify-content-evenly flex-grow-1"
+      >
+        <div class="d-flex flex-column align-items-center">
+          <span class="text-secondary" style="font-size: 12px"
+            >이번 달 수입</span
+          >
+          <span class="fw-bold text-success ms-5"
+            >{{ formatAmount(totalIncome) }}원</span
+          >
+        </div>
+        <div class="d-flex flex-column align-items-center">
+          <span class="text-secondary" style="font-size: 12px"
+            >이번 달 지출</span
+          >
+          <span class="fw-bold text-danger ms-5"
+            >{{ formatAmount(totalExpense) }}원</span
+          >
+        </div>
+        <div class="d-flex flex-column align-items-center">
+          <span class="text-secondary" style="font-size: 12px"
+            >이번 달 수익</span
+          >
+          <span
+            class="fw-bold ms-5"
+            :class="netProfit >= 0 ? 'text-success' : 'text-danger'"
+          >
+            {{ netProfit >= 0 ? '+' : '-' }}{{ formatAmount(netProfit) }}원
+          </span>
+        </div>
+      </div>
+
+      <!-- + 버튼: 모바일에서 숨김 -->
+      <button
+        class="btn rounded-circle fw-bold d-none d-lg-flex align-items-center justify-content-center"
+        style="
+          width: 36px;
+          height: 36px;
+          font-size: 20px;
+          line-height: 1;
+          padding: 0;
+          background-color: orange;
+        "
+        @click="$router.push({ name: 'transactions' })"
+      >
+        +
+      </button>
+    </header>
+  </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from 'axios';
+
+defineEmits(['toggle-sidebar']);
 
 const route = useRoute();
 const transactions = ref([]);

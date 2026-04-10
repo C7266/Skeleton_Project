@@ -6,8 +6,10 @@
           날짜
         </th>
         <th class="text-secondary fw-normal fs-6 py-2 text-center">내용</th>
+
+        <!-- 모바일 숨김 -->
         <th
-          class="text-secondary fw-normal fs-6 py-2 text-center"
+          class="text-secondary fw-normal fs-6 py-2 text-center d-none d-lg-table-cell"
           style="width: 120px"
         >
           카테고리
@@ -18,14 +20,16 @@
         >
           금액
         </th>
+        <!-- 모바일 숨김 -->
         <th
-          class="text-secondary fw-normal fs-6 py-2 text-center"
+          class="text-secondary fw-normal fs-6 py-2 text-center d-none d-lg-table-cell"
           style="width: 100px"
         >
           고정
         </th>
+        <!-- 모바일 숨김 -->
         <th
-          class="text-secondary fw-normal fs-6 py-2 text-center"
+          class="text-secondary fw-normal fs-6 py-2 text-center d-none d-lg-table-cell"
           style="width: 90px"
         >
           구분
@@ -41,10 +45,8 @@
 
     <tbody>
       <tr v-for="t in transactions" :key="t.id">
-        <!-- 날짜 -->
         <td class="text-muted small">{{ formatDate(t.date) }}</td>
 
-        <!-- 내용 -->
         <td>
           <div class="fw-semibold">{{ t.title }}</div>
           <div v-if="t.memo" class="text-muted" style="font-size: 12px">
@@ -52,18 +54,19 @@
           </div>
         </td>
 
-        <!-- 카테고리 -->
-        <td class="text-center fs-6">{{ getCategory(t.categoryId)?.name }}</td>
+        <!-- 모바일 숨김 -->
+        <td class="text-center fs-6 d-none d-lg-table-cell">
+          {{ getCategory(t.categoryId)?.name }}
+        </td>
 
-        <!-- 금액 -->
         <td class="text-center fw-semibold">
           <span :class="t.type === 'expense' ? 'text-danger' : 'text-success'">
             {{ t.type === 'expense' ? '-' : '+' }}{{ formatAmount(t.amount) }}
           </span>
         </td>
 
-        <!-- 고정 -->
-        <td class="text-center">
+        <!-- 모바일 숨김 -->
+        <td class="text-center d-none d-lg-table-cell">
           <span
             v-if="t.fix"
             class="badge rounded-pill bg-secondary-subtle text-secondary"
@@ -72,8 +75,8 @@
           </span>
         </td>
 
-        <!-- 구분 배지 -->
-        <td class="text-center">
+        <!-- 모바일 숨김 -->
+        <td class="text-center d-none d-lg-table-cell">
           <span
             class="fs-6"
             :class="t.type === 'income' ? 'text-success' : 'text-danger'"
@@ -82,7 +85,6 @@
           </span>
         </td>
 
-        <!-- 관리 버튼 -->
         <td class="text-center">
           <button class="btn btn-mint me-2" @click="$emit('edit', t.id)">
             수정
@@ -93,7 +95,6 @@
         </td>
       </tr>
 
-      <!-- 데이터 없을 때 -->
       <tr v-if="!transactions.length">
         <td colspan="7" class="text-center text-muted py-5">
           거래 내역이 없습니다.
@@ -150,5 +151,52 @@ defineEmits(['edit', 'delete']);
 .btn-red {
   background: #ffd6d6;
   color: #c0392b;
+}
+
+/* 모바일에서 내용 컬럼 줄바꿈 방지 */
+@media (max-width: 991px) {
+  table {
+    table-layout: fixed; /* 컬럼 너비 고정 */
+    width: 100%;
+  }
+
+  /* 날짜 컬럼 */
+  td:first-child,
+  th:first-child {
+    width: 85px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  /* 내용 컬럼 */
+  td:nth-child(2),
+  th:nth-child(2) {
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100px;
+  }
+
+  /* 금액 컬럼 */
+  td:nth-child(3),
+  th:nth-child(3) {
+    width: 80px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  /* 관리 컬럼 */
+  td:last-child,
+  th:last-child {
+    width: 90px;
+  }
+
+  /* 버튼 작게 */
+  .btn {
+    padding: 2px 6px;
+    font-size: 11px;
+    margin: 1px !important;
+  }
 }
 </style>

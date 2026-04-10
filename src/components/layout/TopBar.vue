@@ -1,6 +1,12 @@
 <template>
   <div class="topbar">
-    <span class="topbar-title">{{ title }}</span>
+    <!-- 햄버거 버튼: lg 이하에서만 보임 -->
+    <button class="d-lg-none hamburger" @click="$emit('toggle-sidebar')">
+      ☰
+    </button>
+    <div class="topbar">
+      <span class="topbar-title">{{ title }}</span>
+    </div>
   </div>
 </template>
 
@@ -11,6 +17,7 @@ defineProps({
     default: '',
   },
 });
+defineEmits(['toggle-sidebar']);
 </script>
 
 <style scoped>
@@ -22,7 +29,6 @@ defineProps({
   display: flex;
   align-items: center;
   padding: 2rem 28px;
-  border-bottom: 1px solid black;
 }
 
 .topbar-title {

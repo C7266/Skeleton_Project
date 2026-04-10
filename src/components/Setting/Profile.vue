@@ -10,20 +10,27 @@
 
       <!-- 이름 영역 -->
       <div class="profile-info">
-        <div class="info-label">이름</div>
+        <!-- 이름 라벨 + 버튼 한 줄 -->
+        <div class="label-row">
+          <span class="info-label">이름</span>
 
-        <!-- 일반 상태 -->
-        <div v-if="!isEdit" class="info-row">
-          <input class="name-input" :value="user?.name" readonly />
-          <button class="btn btn-gray" @click="startEdit">수정</button>
+          <!-- 일반 상태: 수정 버튼 -->
+          <template v-if="!isEdit">
+            <button class="btn btn-gray btn-sm" @click="startEdit">수정</button>
+          </template>
+
+          <!-- 수정 상태: 완료/취소 버튼 -->
+          <template v-else>
+            <button class="btn btn-mint btn-sm" @click="saveName">완료</button>
+            <button class="btn btn-gray btn-sm" @click="cancelEdit">
+              취소
+            </button>
+          </template>
         </div>
 
-        <!-- 수정 상태 -->
-        <div v-else class="info-row">
-          <input class="name-input" v-model="editName" />
-          <button class="btn btn-mint" @click="saveName">완료</button>
-          <button class="btn btn-gray" @click="cancelEdit">취소</button>
-        </div>
+        <!-- input은 아래에 단독으로 -->
+        <input v-if="!isEdit" class="name-input" :value="user?.name" readonly />
+        <input v-else class="name-input" v-model="editName" />
       </div>
     </div>
   </section>
@@ -82,14 +89,12 @@ const saveName = async () => {
   margin: 0 0 20px;
 }
 
-/* 프로필 가로 배치 */
 .profile-body {
   display: flex;
   align-items: center;
   gap: 24px;
 }
 
-/* 아바타 원 */
 .avatar {
   width: 90px;
   height: 90px;
@@ -104,11 +109,17 @@ const saveName = async () => {
   flex-shrink: 0;
 }
 
-/* 우측 이름 영역 */
 .profile-info {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+
+/* 이름 라벨 + 버튼 한 줄 */
+.label-row {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
@@ -117,16 +128,9 @@ const saveName = async () => {
   color: #555;
 }
 
-/* 이름 input + 버튼 가로 배치 */
-.info-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* 이름 input - 그림처럼 넓게 */
+/* input 단독 한 줄 */
 .name-input {
-  flex: 1;
+  width: 100%;
   height: 42px;
   padding: 0 14px;
   border: 1px solid #ddd;
@@ -141,16 +145,19 @@ const saveName = async () => {
   border-color: #aaa;
 }
 
-/* 버튼 */
+/* 버튼 공통 */
 .btn {
-  height: 42px;
-  padding: 0 20px;
-  border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
+  border: 1px solid #ddd;
+}
+
+.btn-sm {
+  height: 30px;
+  padding: 0 12px;
 }
 
 .btn-gray {

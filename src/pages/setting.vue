@@ -63,17 +63,18 @@ onMounted(async () => {
         />
       </div>
 
+      <!-- ✅ 수입 먼저, 지출 나중 -->
       <div class="fixed-wrapper">
-        <FixedList
-          title="저장된 고정 지출"
-          type="expense"
-          :items="fixedExpense"
-          @delete="deleteFixed"
-        />
         <FixedList
           title="저장된 고정 수입"
           type="income"
           :items="fixedIncome"
+          @delete="deleteFixed"
+        />
+        <FixedList
+          title="저장된 고정 지출"
+          type="expense"
+          :items="fixedExpense"
           @delete="deleteFixed"
         />
       </div>
@@ -90,7 +91,6 @@ onMounted(async () => {
   min-height: 100%;
 }
 
-/* 카드 */
 .card {
   background: #fff;
   border: 1px solid #e0e0e0;
@@ -104,13 +104,11 @@ onMounted(async () => {
   margin: 0 0 20px;
 }
 
-/* 섹션 블록 */
 .section-block {
   margin: 0 24px;
   padding: 0 0 2rem 0;
 }
 
-/* 섹션 타이틀 - 그림처럼 bold */
 .section-title {
   font-size: 18px;
   font-weight: 700;
@@ -125,5 +123,31 @@ onMounted(async () => {
   gap: 0 60px;
   margin: 0 24px;
   padding: 0 0 2rem 0;
+}
+
+/* 모바일 */
+@media (max-width: 991px) {
+  .setting-page {
+    padding: 16px; /* 패딩 줄임 */
+  }
+
+  .card {
+    padding: 16px; /* 카드 패딩 줄임 */
+  }
+
+  .section-block {
+    margin: 0; /* margin 제거 */
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 1열로 변경 */
+  .fixed-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 24px 0; /* 수입/지출 사이 간격 */
+    margin: 0; /* margin 제거 */
+  }
 }
 </style>
