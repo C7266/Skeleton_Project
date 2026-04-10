@@ -1,13 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router'; // ← 추가
 import axios from 'axios';
 import TransactionForm from '@/components/transactions/TransactionForm.vue';
 import TransactionPreview from '@/components/transactions/TransactionPreview.vue';
 import '@/assets/transactioncss/transactions.css';
 import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
-const route = useRoute();
 
 const BASE = 'http://localhost:3000';
 const route = useRoute(); // ← 추가

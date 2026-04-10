@@ -32,13 +32,15 @@ const fixedExpense = computed(() =>
 );
 
 const deleteFixed = async (id) => {
-  await axios.delete(`/api/transactions/${id}`);
-  transactions.value = transactions.value.filter((v) => v.id !== id);
+  await axios.patch(`/api/transactions/${id}`, { fix: false });
+  transactions.value = transactions.value.map((v) =>
+    v.id === id ? { ...v, fix: false } : v,
+  );
 };
 
-onMounted(() => {
-  fetchCategories();
-  fetchTransactions();
+onMounted(async () => {
+  await fetchCategories();
+  await fetchTransactions();
 });
 </script>
 
