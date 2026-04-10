@@ -92,17 +92,7 @@ const handleSubmit = async () => {
 };
 
 const handleCancel = () => {
-  form.value = {
-    type: form.value.type,
-    date: new Date().toISOString().slice(0, 10),
-    amount: '',
-    title: '',
-    memo: '',
-    categoryId: '',
-    userId: 'u1',
-    fix: false,
-  };
-  isRecurring.value = false;
+  router.back();
 };
 </script>
 

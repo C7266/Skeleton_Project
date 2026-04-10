@@ -50,7 +50,7 @@ function setType(type) {
     </div>
 
     <!-- 기본 정보 -->
-    <p class="section-label">기본 정보</p>
+
     <div class="row g-2 mb-3">
       <div class="col-6">
         <label class="form-label field-label">날짜</label>
@@ -82,7 +82,6 @@ function setType(type) {
       <input
         type="text"
         class="form-control field-input"
-        placeholder="예) 점심 - 한식당"
         :value="form.title"
         @input="update('title', $event.target.value)"
       />
@@ -99,7 +98,7 @@ function setType(type) {
     </template>
 
     <!-- 추가 정보 -->
-    <p class="section-label">추가 정보</p>
+
     <div class="mb-3">
       <label class="form-label field-label">메모</label>
       <textarea
@@ -112,9 +111,7 @@ function setType(type) {
 
     <!-- 정기 지출 토글 -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <span style="font-size: 12px; color: #555"
-        >정기 일정으로 등록 하시겠습니까?</span
-      >
+      <span style="font-size: 14px; color: black">정기 일정 등록</span>
       <div
         class="toggle-switch"
         :class="{ on: isRecurring }"
