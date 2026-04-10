@@ -11,15 +11,14 @@
     </button>
 
     <!-- 페이지 번호 -->
+
     <button
       v-for="page in totalPages"
       :key="page"
       class="btn btn-sm rounded-circle"
       style="width: 36px; height: 36px"
       :class="
-        currentPage === page
-          ? 'btn-success text-white'
-          : 'btn-outline-secondary'
+        currentPage === page ? 'btn-active-mint' : 'btn-outline-secondary'
       "
       @click="$emit('update:currentPage', page)"
     >
@@ -55,3 +54,12 @@ const goNext = () => {
     emit('update:currentPage', props.currentPage + 1);
 };
 </script>
+
+<style scoped>
+.btn-active-mint {
+  background: #d4f0d4;
+  color: #2d8a2d;
+  border: 1px solid gray;
+  font-weight: 600;
+}
+</style>

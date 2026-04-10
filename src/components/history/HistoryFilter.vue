@@ -81,7 +81,7 @@
       <div
         class="bg-white rounded-3 shadow-sm p-3 d-flex align-items-center gap-3"
       >
-        <span class="fs-4">💰</span>
+        <i class="bi bi-coin fs-3 text-success"></i>
         <div>
           <div class="text-secondary small">필터 내 수입</div>
           <div class="fw-bold text-success fs-5">
@@ -94,7 +94,7 @@
       <div
         class="bg-white rounded-3 shadow-sm p-3 d-flex align-items-center gap-3"
       >
-        <span class="fs-4">🔴</span>
+        <i class="bi bi-coin fs-3 text-danger"></i>
         <div>
           <div class="text-secondary small">필터 내 지출</div>
           <div class="fw-bold text-danger fs-5">

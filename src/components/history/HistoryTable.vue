@@ -2,12 +2,31 @@
   <table class="table table-hover align-middle mb-0">
     <thead>
       <tr class="border-bottom border-2">
-        <th class="text-secondary fw-normal fs-6 pb-3" style="width: 120px">날짜</th>
+        <th class="text-secondary fw-normal fs-6 pb-3" style="width: 120px">
+          날짜
+        </th>
         <th class="text-secondary fw-normal fs-6 pb-3">내용</th>
-        <th class="text-secondary fw-normal fs-6 pb-3" style="width: 130px">카테고리</th>
-        <th class="text-secondary fw-normal fs-6 pb-3 text-end" style="width: 150px">금액</th>
-        <th class="text-secondary fw-normal fs-6 pb-3 text-center" style="width: 90px">구분</th>
-        <th class="text-secondary fw-normal fs-6 pb-3 text-center" style="width: 130px">관리</th>
+        <th class="text-secondary fw-normal fs-6 pb-3" style="width: 130px">
+          카테고리
+        </th>
+        <th
+          class="text-secondary fw-normal fs-6 pb-3 text-end"
+          style="width: 150px"
+        >
+          금액
+        </th>
+        <th
+          class="text-secondary fw-normal fs-6 pb-3 text-center"
+          style="width: 90px"
+        >
+          구분
+        </th>
+        <th
+          class="text-secondary fw-normal fs-6 pb-3 text-center"
+          style="width: 130px"
+        >
+          관리
+        </th>
       </tr>
     </thead>
 
@@ -32,7 +51,7 @@
               style="width: 10px; height: 10px; flex-shrink: 0"
               :style="{ backgroundColor: getCategory(t.categoryId)?.color }"
             />
-            <span class="small">{{ getCategory(t.categoryId)?.name }}</span>
+            <span class="fs-6">{{ getCategory(t.categoryId)?.name }}</span>
           </span>
         </td>
 
@@ -46,8 +65,8 @@
         <!-- 구분 배지 -->
         <td class="text-center">
           <span
-            class="badge rounded-pill px-3 py-1"
-            :class="t.type === 'income' ? 'text-success bg-success-subtle' : 'text-danger bg-danger-subtle'"
+            class="fs-6"
+            :class="t.type === 'income' ? 'text-success' : 'text-danger'"
           >
             {{ t.type === 'income' ? '수입' : '지출' }}
           </span>
@@ -55,18 +74,10 @@
 
         <!-- 관리 버튼 -->
         <td class="text-center">
-          <button
-            class="btn btn-sm btn-success me-1"
-            style="font-size: 12px; padding: 3px 10px"
-            @click="$emit('edit', t.id)"
-          >
+          <button class="btn btn-mint me-1" @click="$emit('edit', t.id)">
             수정
           </button>
-          <button
-            class="btn btn-sm btn-danger"
-            style="font-size: 12px; padding: 3px 10px"
-            @click="$emit('delete', t.id)"
-          >
+          <button class="btn btn-red" @click="$emit('delete', t.id)">
             삭제
           </button>
         </td>
@@ -100,7 +111,34 @@ defineProps({
     type: Function,
     required: true,
   },
-})
+});
 
-defineEmits(['edit', 'delete'])
+defineEmits(['edit', 'delete']);
 </script>
+
+<style scoped>
+.btn {
+  padding: 4px 14px;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-mint {
+  background: #d4f0d4;
+  color: #2d8a2d;
+}
+
+.btn-gray {
+  background: #eee;
+  color: #555;
+}
+
+.btn-red {
+  background: #ffd6d6;
+  color: #c0392b;
+}
+</style>
