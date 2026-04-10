@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "u1",
-      "name": "김멀티"
+      "name": "가나다"
     }
   ],
   "categories": [
@@ -93,7 +93,7 @@
       "amount": 50000,
       "date": "2026-04-10",
       "memo": "롤 스킨",
-      "fix": false,
+      "fix": true,
       "id": "DaIf430"
     }
   ]
