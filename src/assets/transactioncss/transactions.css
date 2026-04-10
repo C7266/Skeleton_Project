@@ -1,26 +1,49 @@
+.tx-card {
+  background: #faf7f2;
+  border: 1px solid #e8e0d0;
+  border-radius: 16px;
+}
+
 /* 수입/지출 토글 */
 .toggle-btn.active {
-  border-bottom: 2px solid #333;
+  background: #eaa000;
+  color: #fff;
+  border-color: #eaa000;
+  font-weight: 600;
 }
 .toggle-btn {
-  border: none;
-  background: none;
-  color: #333;
+  border: 1.5px solid #d0c8b8;
+  background: #faf7f2;
+  color: #888;
   font-weight: 500;
+  font-size: 15px;
+  padding: 10px 0;
+  border-radius: 10px;
+  transition: all 0.15s;
+}
+.section-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
 }
 
 /* 입력 */
+.field-input {
+  background: #fff;
+  border: 1px solid #ddd8ce;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #222;
+  padding: 10px 12px;
+}
+
 .field-input:focus {
-  border-color: #333 !important;
+  border-color: #000 !important;
   box-shadow: none !important;
   background: #fff !important;
 }
-.field-input {
-  background: #fff;
-  border: 1px solid #ccc;
-  font-size: 13px;
-  color: #000;
-}
+
 .amount-unit {
   position: absolute;
   right: 10px;
@@ -50,6 +73,7 @@
   justify-content: center;
   gap: 6px;
   cursor: pointer;
+  transition: all 0.15s;
 }
 .cat-item:hover {
   border-color: #333;
@@ -95,18 +119,39 @@
   left: 3px;
 }
 .toggle-switch.on .toggle-knob {
-  left: 21px;
+  left: 23px;
 }
 
 /* 버튼 */
-.btn-save {
-  background: #333;
-  border: none;
-  color: #fff;
-  font-weight: 500;
+.btn-cancel-custom {
+  flex: 1;
+  padding: 11px;
+  border: 1.5px solid #d0c8b8;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: background 0.12s;
 }
-.btn-save:hover {
-  background: #222;
+.btn-cancel-custom:hover {
+  background: #1a1a2e;
+  color: #fff;
+}
+.btn-save-custom {
+  flex: 2;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: #eaa000;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.btn-save-custom:hover {
+  background: #d4900a;
 }
 
 /* 미리보기 금액 */

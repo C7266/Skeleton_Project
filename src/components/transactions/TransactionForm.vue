@@ -24,39 +24,33 @@ function setType(type) {
     memo: '',
     categoryId: '',
     title: '',
-    fix: '',
+    fix: false,
   });
 }
 </script>
 
 <template>
   <div class="tx-card p-4">
-    <!-- 수입 지출  -->
-    <div class="d-flex bg-light rounded-3 p-1 mb-4">
+    <!-- 수입 / 지출 토글 -->
+    <div class="d-flex gap-2 mb-4">
       <button
-        class="toggle-btn flex-fill rounded-3 py-2"
-        :class="{ active: form.type === 'income' }"
-        @click="setType('income')"
-      >
-        수입
-      </button>
-      <button
-        class="toggle-btn flex-fill rounded-3 py-2"
+        class="toggle-btn flex-fill"
         :class="{ active: form.type === 'expense' }"
         @click="setType('expense')"
       >
         지출
       </button>
+      <button
+        class="toggle-btn flex-fill"
+        :class="{ active: form.type === 'income' }"
+        @click="setType('income')"
+      >
+        수입
+      </button>
     </div>
 
     <!-- 기본 정보 -->
-    <p
-      class="text-uppercase text-secondary mb-2"
-      style="font-size: 11px; font-weight: 500; letter-spacing: 0.05em"
-    >
-      기본 정보
-    </p>
-
+    <p class="section-label">기본 정보</p>
     <div class="row g-2 mb-3">
       <div class="col-6">
         <label class="form-label field-label">날짜</label>
@@ -82,25 +76,21 @@ function setType(type) {
       </div>
     </div>
 
-    <!-- 내용 -->
+    <!-- 거래명 -->
     <div class="mb-3">
       <label class="form-label field-label">거래명</label>
       <input
         type="text"
         class="form-control field-input"
+        placeholder="예) 점심 - 한식당"
         :value="form.title"
         @input="update('title', $event.target.value)"
       />
     </div>
 
-    <!-- 카테고리  -->
+    <!-- 카테고리 (지출일 때만) -->
     <template v-if="form.type === 'expense'">
-      <p
-        class="text-uppercase text-secondary mb-2"
-        style="font-size: 11px; font-weight: 500; letter-spacing: 0.05em"
-      >
-        카테고리
-      </p>
+      <p class="section-label">카테고리</p>
       <CategoryGrid
         :categories="filteredCategories"
         :model-value="form.categoryId"
@@ -109,12 +99,7 @@ function setType(type) {
     </template>
 
     <!-- 추가 정보 -->
-    <p
-      class="text-uppercase text-secondary mb-2"
-      style="font-size: 11px; font-weight: 500; letter-spacing: 0.05em"
-    >
-      추가 정보
-    </p>
+    <p class="section-label">추가 정보</p>
     <div class="mb-3">
       <label class="form-label field-label">메모</label>
       <textarea
@@ -125,7 +110,7 @@ function setType(type) {
       />
     </div>
 
-    <!-- 정기 일정  -->
+    <!-- 정기 지출 토글 -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <span style="font-size: 12px; color: #555"
         >정기 일정으로 등록 하시겠습니까?</span
@@ -141,18 +126,8 @@ function setType(type) {
 
     <!-- 버튼 -->
     <div class="d-flex gap-2">
-      <button
-        class="btn btn-outline-secondary flex-fill"
-        @click="$emit('cancel')"
-      >
-        취소
-      </button>
-      <button
-        class="btn btn-outline-primary flex-fill flex-grow-1"
-        @click="$emit('submit')"
-      >
-        저장하기
-      </button>
+      <button class="btn-cancel-custom" @click="$emit('cancel')">취소</button>
+      <button class="btn-save-custom" @click="$emit('submit')">저장</button>
     </div>
   </div>
 </template>
