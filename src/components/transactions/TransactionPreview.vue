@@ -7,8 +7,6 @@ defineProps({
 
 <template>
   <div class="tx-card p-4" style="position: sticky; top: 20px">
-    <p class="fw-500 mb-3" style="font-size: 13px">미리보기</p>
-
     <!-- 금액 -->
     <div
       class="preview-amount"
